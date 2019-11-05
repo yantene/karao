@@ -3,11 +3,11 @@ ja:
   basic:
     error: ":error: コマンド *%{command}* は見つかりません"
 
-  modules:
+  features:
     help:
       help: |
-        *ysbot help*
-            ysbot の使い方を表示します。
+        *karao help*
+            karao の使い方を表示します。
 
     config:
       help: |
@@ -18,3 +18,16 @@ ja:
       unavailable_locale: ":warning: ロケール %{set_locale} は無効です"
       check_locale: "あなたの言語設定は %{current_locale} です"
       locale_changed: "あなたの言語設定は %{set_locale} に変更されました"
+
+    show:
+      help: |
+        *karao show songs* [_NUM_]
+            曲の月間ランキングを表示します。
+      subcmd_not_found: ":error: show のサブコマンド *%{subcommand}* は見つかりません"
+      subcmd_not_given: ":error: show にサブコマンドが与えられていません"
+
+    score:
+      help: |
+        *karao score* _CODE_ _SCORE_
+            曲に点数を設定します。
+      score_updated: "点数は設定されました"

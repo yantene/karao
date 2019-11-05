@@ -6,7 +6,7 @@ module Bot
   module Feature
     module Help
       def self.help(locale)
-        I18n.t('modules.help.help.', locale: locale)
+        I18n.t('features.help.help.', locale: locale)
       end
 
       def self.exec(cmd, _argv, user, _current_time, data)

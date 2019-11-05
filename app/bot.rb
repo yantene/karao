@@ -3,7 +3,7 @@
 Dir.glob('./app/**/*.rb').each(&method(:require))
 
 module Bot
-  TRIGGER_COMMAND = /ysbot /.freeze
+  TRIGGER_COMMAND = /karao /.freeze
 
   def self.start!
     SLACK_CLIENT.on :message do |data|

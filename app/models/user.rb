@@ -7,6 +7,8 @@ require './app/lib/i18n_settings'
 class User < ActiveRecord::Base
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
+  has_many :scores
+
   scope :order_by_score, -> { order(score: :desc) }
 
   def stamina(current_time)

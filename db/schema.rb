@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_235959) do
+ActiveRecord::Schema.define(version: 2019_11_05_173856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "rankings", force: :cascade do |t|
+    t.bigint "song_id", null: false
+    t.integer "rank", null: false, comment: "currRank"
+    t.datetime "logged_at", null: false, comment: "updateDate"
+    t.boolean "latest", default: true, null: false
+    t.index ["logged_at", "rank"], name: "index_rankings_on_logged_at_and_rank", unique: true
+    t.index ["song_id"], name: "index_rankings_on_song_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "song_id", null: false
+    t.decimal "score", precision: 6, scale: 3, comment: "JOYSOUND の分析採点マスターのスコア"
+    t.index ["song_id"], name: "index_scores_on_song_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "code", null: false, comment: "naviGroupId"
+    t.string "title", null: false, comment: "songName"
+    t.string "artist", null: false, comment: "artistName"
+    t.index ["code"], name: "index_songs_on_code", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "slack_id"

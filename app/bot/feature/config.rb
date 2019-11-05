@@ -7,7 +7,7 @@ module Bot
     module Config
       def self.help(locale)
         I18n.t(
-          'modules.config.help.',
+          'features.config.help.',
           available_locales: I18n.available_locales.join(', '),
           locale: locale,
         )
@@ -28,12 +28,12 @@ module Bot
         else
           if subcmd.nil?
             post(
-              I18n.t('modules.config.subcmd_not_given.', locale: user.locale),
+              I18n.t('features.config.subcmd_not_given.', locale: user.locale),
               data,
             )
           else
             post(
-              I18n.t('modules.config.subcmd_not_found.', subcommand: subcmd, locale: user.locale),
+              I18n.t('features.config.subcmd_not_found.', subcommand: subcmd, locale: user.locale),
               data,
             )
           end
@@ -45,7 +45,7 @@ module Bot
       def self.check_locale(user, data)
         post(
           I18n.t(
-            'modules.config.check_locale.',
+            'features.config.check_locale.',
             current_locale: user.locale,
             locale: user.locale,
           ),
@@ -58,7 +58,7 @@ module Bot
 
         post(
           I18n.t(
-            'modules.config.locale_changed.',
+            'features.config.locale_changed.',
             set_locale: val,
             locale: user.locale,
           ),
@@ -67,7 +67,7 @@ module Bot
       rescue ActiveRecord::RecordInvalid
         post(
           I18n.t(
-            'modules.config.unavailable_locale.',
+            'features.config.unavailable_locale.',
             set_locale: val,
             locale: user.locale_before_last_save,
           ),
