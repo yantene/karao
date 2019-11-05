@@ -1,0 +1,23 @@
+production:
+  adapter: postgresql
+  host: db
+  port: 5432
+  username: postgres
+  password:
+  database: bot_production
+
+development:
+  adapter: postgresql
+  host: <%= ENV.fetch('DEV_DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('DEV_DB_PORT', 5432) %>
+  username: <%= ENV.fetch('DEV_DB_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('DEV_DB_PASSWORD', '') %>
+  database: bot_development
+
+test:
+  adapter: postgresql
+  host: <%= ENV.fetch('DEV_DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('DEV_DB_PORT', 5432) %>
+  username: <%= ENV.fetch('DEV_DB_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('DEV_DB_PASSWORD', '') %>
+  database: bot_test

@@ -1,0 +1,52 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - Gemfile
+    - vendor/bundle/**/*
+    - db/schema.rb
+    - spec/**/*
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/Documentation:
+  Exclude:
+    - db/migrate/*
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - db/migrate/*
+
+Metrics/AbcSize:
+  Max: 60
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Metrics/MethodLength:
+  Max: 45
+  Exclude:
+    - 'db/migrate/*.rb'

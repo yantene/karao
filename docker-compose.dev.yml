@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  db:
+    restart: always
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+    ports:
+      - target: 5432
+        published: ${DEV_DB_PORT:-5432}
+        protocol: tcp
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
