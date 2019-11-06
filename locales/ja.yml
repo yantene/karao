@@ -28,16 +28,3 @@ ja:
       invalid_joysound_code: ":warning: JOYSOUND code `%{set_joysound_code}` は無効です"
       check_joysound_code: "あなたの JOYSOUND code は `%{current_joysound_code}` です"
       joysound_code_changed: "あなたの JOYSOUND code は `%{set_joysound_code}` に変更されました"
-
-    show:
-      help: |
-        *karao show songs* [_NUM_]
-            曲の月間ランキングを表示します。
-      subcmd_not_found: ":error: show のサブコマンド *%{subcommand}* は見つかりません"
-      subcmd_not_given: ":error: show にサブコマンドが与えられていません"
-
-    score:
-      help: |
-        *karao score* _CODE_ _SCORE_
-            曲に点数を設定します。
-      score_updated: "点数は設定されました"
