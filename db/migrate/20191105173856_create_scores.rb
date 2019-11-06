@@ -3,10 +3,10 @@ class CreateScores < ActiveRecord::Migration[5.2]
     create_table :scores do |t|
       t.references :user, null: false
       t.references :song, null: false
-      t.decimal :score, precision: 6, scale: 3, comment: 'JOYSOUND の分析採点マスターのスコア'
+      t.decimal :score, null: false, precision: 6, scale: 3, comment: 'JOYSOUND全国採点グランプリのスコア'
+      t.datetime :scored_at, null: false, comment: 'playDtTm'
       t.timestamp
     end
-
-    add_index :scores, %i[user_id song_id], unique: true
+    add_index :scores, %i[user_id scored_at], unique: true
   end
 end

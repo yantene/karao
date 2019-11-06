@@ -27,27 +27,28 @@ ActiveRecord::Schema.define(version: 2019_11_05_173856) do
   create_table "scores", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "song_id", null: false
-    t.decimal "score", precision: 6, scale: 3, comment: "JOYSOUND の分析採点マスターのスコア"
+    t.decimal "score", precision: 6, scale: 3, null: false, comment: "JOYSOUND全国採点グランプリのスコア"
+    t.datetime "scored_at", null: false, comment: "playDtTm"
     t.index ["song_id"], name: "index_scores_on_song_id"
+    t.index ["user_id", "scored_at"], name: "index_scores_on_user_id_and_scored_at", unique: true
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
-    t.string "code", null: false, comment: "naviGroupId"
-    t.string "title", null: false, comment: "songName"
+    t.integer "code", null: false, comment: "selSongNo"
+    t.string "title", null: false, comment: "selSongName"
     t.string "artist", null: false, comment: "artistName"
     t.index ["code"], name: "index_songs_on_code", unique: true
   end
 
   create_table "users", force: :cascade do |t|
     t.string "slack_id"
-    t.integer "last_stamina", default: 60, null: false
-    t.integer "score", default: 0, null: false
     t.string "locale", default: "ja", comment: "user preferred locale"
     t.string "name", comment: "slack display name"
+    t.string "joysound_code", comment: "JOYSOUNDの16進36桁のユーザコード"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["slack_id"], name: "index_users_on_slack_id"
+    t.index ["slack_id"], name: "index_users_on_slack_id", unique: true
   end
 
 end
