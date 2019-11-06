@@ -11,7 +11,7 @@ ja:
 
     config:
       help: |
-        *ysbot config locale* _LOCALE_
+        *karao config locale* _LOCALE_
             あなたの言語設定を _LOCALE_ (%{available_locales}) に変更します。
       subcmd_not_found: ":error: config のサブコマンド *%{subcommand}* は見つかりません"
       subcmd_not_given: ":error: config にサブコマンドが与えられていません"
