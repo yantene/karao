@@ -27,9 +27,9 @@ module Bot
           end
         when 'joysound'
           if val.nil?
-            check_joysound_code(user, data)
+            check_navi_code(user, data)
           else
-            joysound_code(val, user, data)
+            navi_code(val, user, data)
           end
         else
           if subcmd.nil?
@@ -81,24 +81,24 @@ module Bot
         )
       end
 
-      def self.check_joysound_code(user, data)
+      def self.check_navi_code(user, data)
         post(
           I18n.t(
-            'features.config.check_joysound_code.',
-            current_joysound_code: user.joysound_code,
+            'features.config.check_navi_code.',
+            current_navi_code: user.navi_code,
             locale: user.locale,
           ),
           data,
         )
       end
 
-      def self.joysound_code(val, user, data)
-        user.update!(joysound_code: val)
+      def self.navi_code(val, user, data)
+        user.update!(navi_code: val)
 
         post(
           I18n.t(
-            'features.config.joysound_code_changed.',
-            set_joysound_code: val,
+            'features.config.navi_code_changed.',
+            set_navi_code: val,
             locale: user.locale,
           ),
           data,
@@ -106,8 +106,8 @@ module Bot
       rescue ActiveRecord::RecordInvalid
         post(
           I18n.t(
-            'features.config.invalid_joysound_code.',
-            set_joysound_code: val,
+            'features.config.invalid_navi_code.',
+            set_navi_code: val,
             locale: user.locale,
           ),
           data,

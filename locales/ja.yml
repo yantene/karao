@@ -7,24 +7,35 @@ ja:
     help:
       help: |
         *karao help*
-            karao の使い方を表示します。
+            karao の使い方を表示します
 
     config:
       help: |
         *karao config locale* _LOCALE_
-            あなたの言語設定を _LOCALE_ (%{available_locales}) に変更します。
-        *karao config joysound* _JOYSOUND CODE_
-            あなたのJOYSOUND code を _JOYSOUND CODE_ に変更します。
-            JOYSOUND code は16進36桁で成るユーザ識別子で、
-            うたスキにログイン後、
-            https://www.joysound.com/utasuki/index.htm で
-            DevTool の Console に以下を打ち込むと取得できます。
-            `document.querySelector('.jp-cmp-sub-head-thumb').src.split("/")[9]`
+            あなたの言語設定を _LOCALE_ (%{available_locales}) に変更します
+        *karao config joysound* _NAVI_ID_
+            あなたの navi_id を _NAVI_ID_ に変更します
+            navi_id は16進36桁でなる JOYSOUND のユーザ識別子です
+            ブラウザでうたスキにログイン後、
+            `https://www.joysound.com/web` で
+            DevTool の Console に以下を打ち込むと取得できます
+            `document.querySelector('#jp-common-info').attributes.jpnaviid.value`
       subcmd_not_found: ":error: config のサブコマンド *%{subcommand}* は見つかりません"
       subcmd_not_given: ":error: config にサブコマンドが与えられていません"
       unavailable_locale: ":warning: ロケール %{set_locale} は無効です"
       check_locale: "あなたの言語設定は %{current_locale} です"
       locale_changed: "あなたの言語設定は %{set_locale} に変更されました"
-      invalid_joysound_code: ":warning: JOYSOUND code `%{set_joysound_code}` は無効です"
-      check_joysound_code: "あなたの JOYSOUND code は `%{current_joysound_code}` です"
-      joysound_code_changed: "あなたの JOYSOUND code は `%{set_joysound_code}` に変更されました"
+      invalid_navi_code: ":warning: navi id `%{set_navi_code}` は無効です"
+      check_navi_code: "あなたの navi id は `%{current_navi_code}` です"
+      navi_code_changed: "あなたの navi id は `%{set_navi_code}` に変更されました"
+
+    update:
+      help: |
+        *karao update* [_MONTH_]
+            当該月の全国採点グランプリのスコアを更新します
+            _MONTH_ は `202001` のような形で与えます
+      navi_code_is_not_set: ":warning: あなたは navi id を設定していません"
+      score_update_succeed: "スコアが更新されました"
+      invalid_month_specified: ":warning: 不正な年月が指定されました"
+      score_update_failed: ":error: 何らかの理由によりスコアの更新に失敗しました"
+
