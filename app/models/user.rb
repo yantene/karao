@@ -6,15 +6,17 @@ require './app/lib/i18n_settings'
 # Slack ユーザに対応するクラス
 class User < ActiveRecord::Base
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
-  validates :joysound_code, format: { with: /[0-9a-fA-F]{36}/ }
+  validates :joysound_code, format: { with: /[0-9a-fA-F]{36}/ }, allow_nil: true
 
   has_many :scores
 
   def update_scores!(month = (Date.today - 1).strftime('%Y%m'))
-    User.fetch_scores(joysound_code, (Date.today - 1).strftime('%Y%m')).each do |score_info|
-      song = Song.find_or_create_by!(code: score_info['selSongNo'], title: score_info['selSongName'], artist: score_info['artistName'])
+    ActiveRecord::Base.transaction do
+      User.fetch_scores(joysound_code, month).each do |score_info|
+        song = Song.find_or_create_by!(code: score_info['selSongNo'], title: score_info['selSongName'], artist: score_info['artistName'])
 
-      scores.find_or_create_by!(song_id: song.id, score: score_info['markNum'], scored_at: Time.at(score_info['playDtTm'] / 1000))
+        scores.find_or_create_by!(song_id: song.id, score: score_info['markNum'], scored_at: Time.at(score_info['playDtTm'] / 1000))
+      end
     end
   end
 
