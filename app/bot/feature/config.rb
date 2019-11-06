@@ -25,6 +25,12 @@ module Bot
           else
             locale(val, user, data)
           end
+        when 'joysound'
+          if val.nil?
+            check_joysound_code(user, data)
+          else
+            joysound_code(val, user, data)
+          end
         else
           if subcmd.nil?
             post(
@@ -70,6 +76,39 @@ module Bot
             'features.config.unavailable_locale.',
             set_locale: val,
             locale: user.locale_before_last_save,
+          ),
+          data,
+        )
+      end
+
+      def self.check_joysound_code(user, data)
+        post(
+          I18n.t(
+            'features.config.check_joysound_code.',
+            current_joysound_code: user.joysound_code,
+            locale: user.locale,
+          ),
+          data,
+        )
+      end
+
+      def self.joysound_code(val, user, data)
+        user.update!(joysound_code: val)
+
+        post(
+          I18n.t(
+            'features.config.joysound_code_changed.',
+            set_joysound_code: val,
+            locale: user.locale,
+          ),
+          data,
+        )
+      rescue ActiveRecord::RecordInvalid
+        post(
+          I18n.t(
+            'features.config.invalid_joysound_code.',
+            set_joysound_code: val,
+            locale: user.locale,
           ),
           data,
         )
