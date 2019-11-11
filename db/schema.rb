@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_10_060000) do
+ActiveRecord::Schema.define(version: 2019_11_10_060002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name", null: false, comment: "name of list"
+    t.boolean "locked", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_lists_on_name", unique: true
+    t.index ["user_id"], name: "index_lists_on_user_id"
+  end
 
   create_table "scores", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -32,10 +42,22 @@ ActiveRecord::Schema.define(version: 2019_11_10_060000) do
     t.index ["code"], name: "index_song_groups_on_code", unique: true
   end
 
+  create_table "song_groups_lists", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.bigint "song_group_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id", "song_group_id"], name: "index_song_groups_lists_on_list_id_and_song_group_id", unique: true
+    t.index ["list_id"], name: "index_song_groups_lists_on_list_id"
+    t.index ["song_group_id"], name: "index_song_groups_lists_on_song_group_id"
+    t.index ["user_id"], name: "index_song_groups_lists_on_user_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.integer "code", null: false, comment: "songId (selSongNo)"
     t.string "title", null: false, comment: "songName"
-    t.bigint "song_group_id"
+    t.bigint "song_group_id", null: false
     t.index ["code"], name: "index_songs_on_code", unique: true
     t.index ["song_group_id"], name: "index_songs_on_song_group_id"
   end
@@ -50,4 +72,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_060000) do
     t.index ["slack_id"], name: "index_users_on_slack_id", unique: true
   end
 
+  add_foreign_key "lists", "users"
+  add_foreign_key "song_groups_lists", "users"
 end

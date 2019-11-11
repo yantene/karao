@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   validates :navi_code, format: { with: /[0-9a-fA-F]{36}/ }, allow_nil: true
 
   has_many :scores
+  has_many :lists
+  has_many :song_groups_lists
 
   def update_scores!(month = (Date.today - 1).strftime('%Y%m'))
     ActiveRecord::Base.transaction do

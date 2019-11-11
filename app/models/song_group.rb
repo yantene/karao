@@ -5,6 +5,8 @@ require './app/lib/i18n_settings'
 
 class SongGroup < ActiveRecord::Base
   has_many :songs
+  has_many :song_groups_lists
+  has_many :lists, through: :song_groups_lists
 
   def self.upsert_songs_by_song_id!(song_id)
     navi_group_id = fetch_navi_group_id_by_song_id(song_id)

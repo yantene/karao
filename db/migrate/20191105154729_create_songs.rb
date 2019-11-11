@@ -3,7 +3,7 @@ class CreateSongs < ActiveRecord::Migration[5.2]
     create_table :songs do |t|
       t.integer :code, null: false, comment: 'songId (selSongNo)'
       t.string :title, null: false, comment: 'songName'
-      t.references :song_group
+      t.references :song_group, null: false
       t.timestamp
     end
     add_index :songs, :code, unique: true
