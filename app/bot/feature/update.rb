@@ -4,7 +4,7 @@ require './app/lib/i18n_settings'
 
 module Bot
   module Feature
-    module Uonfig
+    module Update
       def self.help(locale)
         I18n.t(
           'features.update.help.',
@@ -36,7 +36,6 @@ module Bot
             )
           end
         rescue => e
-          p e
           post(
             I18n.t('features.update.score_update_failed.', locale: user.locale),
             data,
