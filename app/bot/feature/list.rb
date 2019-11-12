@@ -61,9 +61,11 @@ module Bot
           return true
         when 'lock' # リストをロック
           list.update!(locked: true)
+          post(I18n.t('features.list.lock_list.', list_name: list_name, locale: user.locale), data)
           return true
         when 'unlock' # リストをアンロック
           list.update!(locked: false)
+          post(I18n.t('features.list.unlock_list.', list_name: list_name, locale: user.locale), data)
           return true
         end
 
