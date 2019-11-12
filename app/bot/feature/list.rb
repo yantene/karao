@@ -16,6 +16,15 @@ module Bot
         return false unless cmd == 'list'
 
         subcmd = argv.shift
+
+        if argv.empty?
+          post(
+            ::List.joins(:user).pluck(:name, 'users.name').map { |name, user| "- *#{name}* by #{user}" }.join("\n"),
+            data,
+          )
+          return true
+        end
+
         list_name = argv.shift
 
         unless list_name.match(/\w+/)

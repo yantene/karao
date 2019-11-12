@@ -41,6 +41,8 @@ ja:
 
     list:
       help: |
+        *karao list*
+            リスト一覧を表示します
         *karao list create* _LIST_NAME_
             リスト _LIST_NAME_ を新規作成します
         *karao list delete* _LIST_NAME_
