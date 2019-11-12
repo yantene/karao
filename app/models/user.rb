@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   def update_scores!(month = (Date.today - 1).strftime('%Y%m'))
     ActiveRecord::Base.transaction do
       Score.fetch_scores(navi_code, month).each do |score_info|
-        song = Song.find_or_upsert_songs_by_song_id!(score_info['selSongNo'])
+        song = Song.find_or_upsert_songs_by_song_code!(score_info['selSongNo'])
 
         scores.find_or_create_by!(song_id: song.id, score: score_info['markNum'], scored_at: Time.at(score_info['playDtTm'] / 1000))
       end

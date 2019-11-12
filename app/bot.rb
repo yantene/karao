@@ -6,6 +6,8 @@ module Bot
   TRIGGER_COMMAND = /karao /.freeze
 
   def self.start!
+    User.update_user_name!
+
     SLACK_CLIENT.on :message do |data|
       Thread.new(data) do
         next if data.text.nil?

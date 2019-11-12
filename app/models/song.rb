@@ -7,7 +7,7 @@ class Song < ActiveRecord::Base
   has_many :scores
   belongs_to :song_group
 
-  def self.find_or_upsert_songs_by_song_id!(song_id)
-    find_by(code: song_id) || SongGroup.upsert_songs_by_song_id!(song_id) && find_by(code: song_id)
+  def self.find_or_upsert_songs_by_song_code!(song_code)
+    find_by(code: song_code) || SongGroup.upsert_songs_by_song_code!(song_code) && find_by(code: song_code)
   end
 end

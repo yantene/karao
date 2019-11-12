@@ -8,8 +8,8 @@ class SongGroup < ActiveRecord::Base
   has_many :song_groups_lists
   has_many :lists, through: :song_groups_lists
 
-  def self.upsert_songs_by_song_id!(song_id)
-    navi_group_id = fetch_navi_group_id_by_song_id(song_id)
+  def self.upsert_songs_by_song_code!(song_code)
+    navi_group_id = fetch_navi_group_id_by_song_code(song_code)
     upsert_songs_by_navi_group_id!(navi_group_id)
   end
 
@@ -37,8 +37,8 @@ class SongGroup < ActiveRecord::Base
   # 一見 selSongNo を kind に指定するとその曲の情報が取れるように見えるが、
   # apl_info の中身がめちゃくちゃだったりする。
   # 本メソッドでその曲に対応する naviGroupId を取得した上で再度取得し直す必要あり。
-  def self.fetch_navi_group_id_by_song_id(song_id)
-    info = fetch_contents_detail_json(kind: 'selSongNo', selSongNo: song_id)
+  def self.fetch_navi_group_id_by_song_code(song_code)
+    info = fetch_contents_detail_json(kind: 'selSongNo', selSongNo: song_code)
     info['naviGroupId']
   end
 
