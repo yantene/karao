@@ -40,24 +40,7 @@ module Bot
 
         case subcmd
         when 'show' # リストの曲を表示
-          scores = list.song_groups
-            .left_joins(songs: :scores)
-            .merge(Score.where(user_id: user.id))
-            .group('song_groups.id')
-            .pluck('song_groups.id', Arel.sql('MAX(scores.score)')).to_h
-
-          post(
-            [
-              ":memo: *#{list.name}* by #{list.user.name} :#{list.locked? ? 'lock' : 'unlock' }:",
-              list.song_groups
-                  .order('song_groups_lists.id')
-                  .pluck(:id, :title, :artist)
-                  .map.with_index(1) { |(song_group_id, title, artist), index|
-                "#{'%3d' % index}. *#{title}* #{artist} (#{user.name}: #{scores[song_group_id] || 0} pts)"
-              }.join("\n"),
-            ].join("\n\n"),
-            data,
-          )
+          post(show(list, user), data)
           return true
         when 'lock' # リストをロック
           list.update!(locked: true)
@@ -99,6 +82,41 @@ module Bot
         end
 
         true
+      end
+
+      def self.show(list, user)
+        scores = list.song_groups
+          .left_joins(songs: :scores)
+          .merge(Score.where(user_id: user.id))
+          .group('song_groups.id')
+          .pluck('song_groups.id', Arel.sql('MAX(scores.score)')).to_h
+
+        [
+          ":memo: *#{list.name}* by #{list.user.name} :#{list.locked? ? 'lock' : 'unlock' }:",
+          list.song_groups
+              .order('song_groups_lists.id')
+              .pluck(:id, :title, :artist)
+              .map.with_index(1) { |(song_group_id, title, artist), index|
+            scores[song_group_id].then { |score|
+              [
+                "#{'%3d' % index}.",
+                "*#{title}*",
+                artist,
+                [
+                  case score
+                  when 80...90
+                    ':third_place_medal:'
+                  when 90...95
+                    ':second_place_medal:'
+                  when 95...100
+                    ':first_place_medal:'
+                  end,
+                  "#{score} pts"
+                ].join.then { |evl| evl unless score.nil? },
+              ].join(' ')
+            }
+          }.join("\n"),
+        ].join("\n\n")
       end
     end
   end
