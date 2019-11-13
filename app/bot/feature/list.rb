@@ -113,11 +113,11 @@ module Bot
                 artist,
                 [
                   case score
-                  when 80...90
+                  when 85...90
                     ':third_place_medal:'
-                  when 90...95
+                  when 90...96
                     ':second_place_medal:'
-                  when 95...100
+                  when 96..100
                     ':first_place_medal:'
                   end,
                   "#{score} pts"
