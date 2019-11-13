@@ -25,6 +25,6 @@ bundle exec db:setup
 Mind your shell history.
 
 ```shell-session
+HUBOT_SLACK_TOKEN=xoxb-9999999999-999999999999-XXXXXXXXXXXXXXXXXXXXXXXX docker-compose run app bundle exec rake db:setup
 HUBOT_SLACK_TOKEN=xoxb-9999999999-999999999999-XXXXXXXXXXXXXXXXXXXXXXXX docker-compose up -d
-docker-compose exec app bundle exec rake db:setup
 ```
