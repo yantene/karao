@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :lists
   has_many :song_groups_lists
 
+  scope :joysound_users, -> { where.not(navi_code: nil) }
+
   def update_scores!(month = (Date.today - 1).strftime('%Y%m'))
     ActiveRecord::Base.transaction do
       Score.fetch_scores(navi_code, month).each do |score_info|

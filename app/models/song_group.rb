@@ -2,6 +2,7 @@
 
 require './app/lib/connect_database'
 require './app/lib/i18n_settings'
+require 'net/http'
 
 class SongGroup < ActiveRecord::Base
   has_many :songs
