@@ -42,7 +42,7 @@ module Bot
         end
 
         # リストが存在していなくても行える操作はここまで
-        unless list = List.find_by(name: list_name)
+        unless list = ::List.find_by(name: list_name)
           post(I18n.t('features.list.list_not_found.', list_name: list_name, locale: user.locale), data)
           return true
         end
@@ -120,7 +120,7 @@ module Bot
                   when 96..100
                     ':first_place_medal:'
                   end,
-                  "#{'%3.3d' % score} pts"
+                  "#{'%3.3f' % score.to_i} pts"
                 ].join.then { |evl| evl unless score.nil? },
               ].join(' ')
             }
