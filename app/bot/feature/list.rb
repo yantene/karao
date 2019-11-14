@@ -120,7 +120,7 @@ module Bot
                   when 96..100
                     ':first_place_medal:'
                   end,
-                  "#{'%3.3f' % score.to_i} pts"
+                  "#{'%3.3f' % score.to_f} pts"
                 ].join.then { |evl| evl unless score.nil? },
               ].join(' ')
             }
