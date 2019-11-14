@@ -42,7 +42,7 @@ module Bot
         end
 
         # リストが存在していなくても行える操作はここまで
-        unless list = user.lists.find_by(name: list_name)
+        unless list = List.find_by(name: list_name)
           post(I18n.t('features.list.list_not_found.', list_name: list_name, locale: user.locale), data)
           return true
         end
